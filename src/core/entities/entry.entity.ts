@@ -25,9 +25,6 @@ export class Entry extends Model {
   userId: number;
 
   @Column
-  entryDate: Date;
-
-  @Column
   entryDescription: string;
 
   @Column
