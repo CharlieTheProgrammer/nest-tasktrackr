@@ -1,0 +1,33 @@
+I need to create the following models:
+
+1. Project
+  name
+  entries: Entry[]
+
+
+
+2. User
+  email
+  password
+  settings?
+
+
+3. Category
+  name
+  hidden
+
+
+4. Entry
+  category_id
+  entry_date
+  entry_description
+  start_time
+  end_time
+  total_time
+
+5. Stats? I think some of these are dynamically generated
+  timeSpentTodayOnAllProjects
+  timeSpentTodayOnSelectedProject
+  timeSpentOnAllProjects
+  timeSpentOnSelectedProject
+
