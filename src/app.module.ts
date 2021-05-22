@@ -21,12 +21,14 @@ import { Entry } from './core/entities/entry.entity';
       dialect: 'sqlite',
       storage: '/home/charlieo/Sites/nest-tasktrackr/data/tasktrackr.db',
       models: [User, Project, Category, Entry],
+      logQueryParameters: true,
+      logging: true,
       sync: {
-        force: true,
-        alter: true,
+        force: false,
+        alter: false,
         
       },
-      synchronize: true,
+      synchronize: false,
       
     }),
     ProjectsModule,
