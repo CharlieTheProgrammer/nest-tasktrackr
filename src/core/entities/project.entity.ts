@@ -5,24 +5,26 @@ import {
   HasMany,
   ForeignKey,
   BelongsTo,
+  PrimaryKey,
 } from 'sequelize-typescript';
 import { Entry } from './entry.entity';
 import { User } from './user.entity';
 
 @Table
 export class Project extends Model {
+  @PrimaryKey
+  @Column
+  readonly  id: bigint;
+
   @Column
   name: string;
 
   @ForeignKey(() => User)
   @Column
-  userId: number;
+  userId: bigint;
 
   @Column
   hidden: boolean;
-
-  @Column
-  dateCreated: Date;
 
   @HasMany(() => Entry)
   entries: Entry[];
