@@ -14,27 +14,24 @@ import { User } from './user.entity';
 export class Entry extends Model {
   @ForeignKey(() => Project)
   @Column
-  projectId: number;
+  projectId: bigint;
 
   @ForeignKey(() => Category)
   @Column
-  categoryId: number;
+  categoryId: bigint;
 
   @ForeignKey(() => User)
   @Column
-  userId: number;
+  userId: bigint;
 
   @Column
-  entryDescription: string;
+  description: string;
 
   @Column
   startTime: Date;
 
   @Column
   endTime: Date;
-
-  @Column
-  totalTime: number;
 
   @BelongsTo(() => Project)
   project: Project;

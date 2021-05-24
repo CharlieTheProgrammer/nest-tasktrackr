@@ -1,23 +1,38 @@
-import { Injectable } from '@nestjs/common';
+import { Body, Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/sequelize';
+import { Entry } from 'src/core/entities/entry.entity';
 import { CreateEntryDto } from './dto/create-entry.dto';
 import { UpdateEntryDto } from './dto/update-entry.dto';
 
 @Injectable()
 export class EntriesService {
-  create(createEntryDto: CreateEntryDto) {
-    return 'This action adds a new entry';
+  constructor(
+    @InjectModel(Entry)
+    private userModel: typeof Entry,
+  ) {}
+
+  async create(@Body() createEntryDto: CreateEntryDto) {
+    const entry = await Entry.create(createEntryDto);
+    console.log(entry.toJSON());
+    return {
+      message: 'ok'
+    };
   }
 
-  findAll() {
-    return `This action returns all entries`;
+  async findAll() {
+    return await Entry.findAll();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} entry`;
+  async findOne(id: number) {
+    return await Entry.findByPk(id);
   }
 
-  update(id: number, updateEntryDto: UpdateEntryDto) {
-    return `This action updates a #${id} entry`;
+  async update(id: number, @Body() updateEntryDto: UpdateEntryDto) {
+    return await Entry.update(updateEntryDto, {
+      where: {
+        id
+      }
+    });
   }
 
   remove(id: number) {
