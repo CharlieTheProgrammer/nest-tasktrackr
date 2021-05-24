@@ -24,7 +24,13 @@ export class UsersService {
   }
 
   async findOne(id: number) {
-    return await User.findByPk(id);
+    return await User.scope(['withProjects.withEntries', 'withEntries']).findByPk(id);
+  }
+
+  async findUserByLogin(login: string) {
+    return await User.scope('withPassword').findOne({
+      where: {login}
+    });
   }
 
   async update(id: number, @Body() updateUserDto: UpdateUserDto) {
