@@ -12,6 +12,7 @@ import { Project } from './core/entities/project.entity';
 import { Category } from './core/entities/category.entity';
 import { Entry } from './core/entities/entry.entity';
 import { AuthModule } from './auth/auth.module';
+import { MailerModule } from '@nestjs-modules/mailer';
 
 @Module({
   imports: [
@@ -20,7 +21,7 @@ import { AuthModule } from './auth/auth.module';
     }),
     SequelizeModule.forRoot({
       dialect: 'sqlite',
-      storage: '/home/charlieo/Sites/nest-tasktrackr/data/tasktrackr.db',
+      storage: process.env.DB_PATH,
       models: [User, Project, Category, Entry],
       logQueryParameters: true,
       logging: true,
@@ -37,6 +38,9 @@ import { AuthModule } from './auth/auth.module';
     CategoriesModule,
     EntriesModule,
     AuthModule,
+    MailerModule.forRoot({
+      transport: `${process.env.MAIL_MAILER}://${process.env.MAIL_USERNAME}:${process.env.MAIL_PASSWORD}@${process.env.MAIL_HOST}`,
+    })
   ],
   controllers: [AppController],
   providers: [AppService],
