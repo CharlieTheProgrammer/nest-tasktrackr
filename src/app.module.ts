@@ -11,6 +11,7 @@ import { User } from './core/entities/user.entity';
 import { Project } from './core/entities/project.entity';
 import { Category } from './core/entities/category.entity';
 import { Entry } from './core/entities/entry.entity';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -35,6 +36,7 @@ import { Entry } from './core/entities/entry.entity';
     UsersModule,
     CategoriesModule,
     EntriesModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
@@ -42,5 +44,6 @@ import { Entry } from './core/entities/entry.entity';
 export class AppModule {
   constructor() {
     console.log(process.env.DB_PATH);
+    console.log(process.env.APP_SECRET);
   }
 }
