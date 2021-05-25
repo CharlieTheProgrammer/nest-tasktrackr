@@ -55,8 +55,30 @@ export class MailService {
       to: options.to,
       from: options.from || this.config.fromAddress,
       subject: options.subject || 'Testing Nest MailerModule ✔',
-      text: 'welcome',
+      text: 'welcome'
       // html: '<b>welcome</b>',
     });
   }
+
+  public async forgotPassword(options: sendOptions): Promise<any> {
+    return await this.mailerService.sendMail({
+      to: options.to,
+      from: options.from || this.config.fromAddress,
+      subject: options.subject || 'Testing Nest MailerModule ✔',
+      text: 'Why did you forget your password?'
+      // html: '<b>welcome</b>',
+    });
+  }
+
+  public async passwordReset(options: sendOptions): Promise<any> {
+    return await this.mailerService.sendMail({
+      to: options.to,
+      from: options.from || this.config.fromAddress,
+      subject: options.subject || 'Testing Nest MailerModule ✔',
+      text: 'Your password has been successfully reset.'
+      // html: '<b>welcome</b>',
+    });
+  }
+
+  
 }
