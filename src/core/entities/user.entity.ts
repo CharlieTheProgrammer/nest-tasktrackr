@@ -39,11 +39,6 @@ import { Project } from './project.entity';
 
 @Table
 export class User extends Model {
-  @PrimaryKey
-  // @AllowNull(false)
-  @Column
-  readonly  id: bigint;
-
   @AllowNull(false)
   @Column
   firstName: string;

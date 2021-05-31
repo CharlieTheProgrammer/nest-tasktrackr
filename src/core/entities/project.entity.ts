@@ -12,9 +12,6 @@ import { User } from './user.entity';
 
 @Table
 export class Project extends Model {
-  @PrimaryKey
-  @Column
-  readonly  id: bigint;
 
   @Column
   name: string;
