@@ -33,6 +33,12 @@ export class UsersService {
     });
   }
 
+  async findUserByEmail(email: string) {
+    return await User.scope('withPassword').findOne({
+      where: {email}
+    });
+  }
+
   async update(id: number, @Body() updateUserDto: UpdateUserDto) {
     return await User.update(updateUserDto, {
       where: {
