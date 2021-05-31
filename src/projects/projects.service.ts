@@ -16,7 +16,8 @@ export class ProjectsService {
     const project = await Project.create(createProjectDto);
     console.log(project.toJSON());
     return {
-      message: 'ok'
+      message: 'ok',
+      project
     };
   }
 
@@ -36,7 +37,14 @@ export class ProjectsService {
     });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} project`;
+  async remove(id: number) {
+    // Will need to add user Id here somewhere to make sure user
+    // can only delete their projects
+    console.log(id);
+    return await Project.destroy({
+      where: {
+        id
+      }
+    });
   }
 }
