@@ -35,7 +35,14 @@ export class EntriesService {
     });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} entry`;
+  async remove(id: number) {
+    // Will need to add user Id here somewhere to make sure user
+    // can only delete their projects
+    console.log(id);
+    return await Entry.destroy({
+      where: {
+        id,
+      },
+    });
   }
 }

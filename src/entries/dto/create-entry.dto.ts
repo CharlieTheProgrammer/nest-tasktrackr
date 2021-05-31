@@ -8,6 +8,7 @@ export class CreateEntryDto {
   @IsNotEmpty()
   projectId: bigint;
   
+  @IsOptional()
   @IsNotEmpty()
   categoryId: bigint;
   
@@ -19,7 +20,8 @@ export class CreateEntryDto {
   @IsDateString()
   startTime: Date;
   
+  @IsOptional()
   @IsDateString()
-  endTime: Date;
+  endTime?: Date ;
 
 }
