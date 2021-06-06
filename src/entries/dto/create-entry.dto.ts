@@ -1,4 +1,6 @@
-import { IsOptional, IsNotEmpty, IsDateString } from 'class-validator';
+import { IsOptional, IsNotEmpty, IsInt, IsString } from 'class-validator';
+import { Transform } from 'class-transformer';
+import { emptyStringToNull } from 'src/core/helpers';
 
 export class CreateEntryDto {
   // This has no decorator and that will trigger this property to be removed
@@ -9,19 +11,17 @@ export class CreateEntryDto {
   projectId: bigint;
   
   @IsOptional()
-  @IsNotEmpty()
+  @Transform(emptyStringToNull)
   categoryId: bigint;
   
   @IsNotEmpty()
   userId: bigint;
 
+  @IsOptional()
+  @IsString()
   description: string;
 
-  @IsDateString()
-  startTime: Date;
-  
-  @IsOptional()
-  @IsDateString()
-  endTime?: Date ;
+  @IsInt()
+  totalSeconds: number;
 
 }

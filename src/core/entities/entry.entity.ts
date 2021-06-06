@@ -2,7 +2,6 @@ import {
   Table,
   Column,
   Model,
-  HasMany,
   BelongsTo,
   ForeignKey,
 } from 'sequelize-typescript';
@@ -28,10 +27,8 @@ export class Entry extends Model {
   description: string;
 
   @Column
-  startTime: Date;
+  totalSeconds: number;
 
-  @Column
-  endTime: Date;
 
   @BelongsTo(() => Project)
   project: Project;

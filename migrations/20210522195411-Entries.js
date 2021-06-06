@@ -43,13 +43,9 @@ module.exports = {
         allowNull: true,
         type: Sequelize.STRING,
       },
-      startTime: {
+      totalSeconds: {
         allowNull: true,
-        type: Sequelize.DATE,
-      },
-      endTime: {
-        allowNull: true,
-        type: Sequelize.DATE,
+        type: Sequelize.INTEGER,
       },
       createdAt: {
         allowNull: false,
