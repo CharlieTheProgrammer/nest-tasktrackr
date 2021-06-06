@@ -15,7 +15,7 @@ export class CategoriesService {
     const category = await Category.create(createCategoryDto);
     console.log(category.toJSON());
     return {
-      message: 'ok'
+      message: 'ok',
     };
   }
 
@@ -30,13 +30,19 @@ export class CategoriesService {
   async update(id: number, @Body() updateCategoryDto: UpdateCategoryDto) {
     return await Category.update(updateCategoryDto, {
       where: {
-        id
-      }
+        id,
+      },
     });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} category`;
+  async remove(id: number) {
+    // Will need to add user Id here somewhere to make sure user
+    // can only delete their projects
+    console.log(id);
+    return await Category.destroy({
+      where: {
+        id,
+      },
+    });
   }
 }
-
