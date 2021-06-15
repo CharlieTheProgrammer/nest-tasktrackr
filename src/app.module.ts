@@ -14,6 +14,7 @@ import { Entry } from './core/entities/entry.entity';
 import { AuthModule } from './auth/auth.module';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { HashModule } from './core/hash/hash.module';
+import { ProjectEntriesModule } from './project-entries/project-entries.module';
 
 @Module({
   imports: [
@@ -38,6 +39,7 @@ import { HashModule } from './core/hash/hash.module';
     UsersModule,
     CategoriesModule,
     EntriesModule,
+    ProjectEntriesModule,
     AuthModule,
     MailerModule.forRoot({
       transport: `${process.env.MAIL_MAILER}://${process.env.MAIL_USERNAME}:${process.env.MAIL_PASSWORD}@${process.env.MAIL_HOST}`,

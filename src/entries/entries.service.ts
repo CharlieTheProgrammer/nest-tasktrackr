@@ -15,12 +15,20 @@ export class EntriesService {
     const entry = await Entry.create(createEntryDto);
     console.log(entry.toJSON());
     return {
-      message: 'ok'
+      message: 'ok',
     };
   }
 
   async findAll() {
     return await Entry.findAll();
+  }
+
+  async findAllByProjectId(id: number) {
+    return await Entry.findAll({
+      where: {
+        projectId: id
+      }
+    });
   }
 
   async findOne(id: number) {
@@ -30,8 +38,8 @@ export class EntriesService {
   async update(id: number, @Body() updateEntryDto: UpdateEntryDto) {
     return await Entry.update(updateEntryDto, {
       where: {
-        id
-      }
+        id,
+      },
     });
   }
 
