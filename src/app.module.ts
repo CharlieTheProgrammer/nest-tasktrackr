@@ -15,6 +15,8 @@ import { AuthModule } from './auth/auth.module';
 import { MailerModule } from '@nestjs-modules/mailer';
 import { HashModule } from './core/hash/hash.module';
 import { ProjectEntriesModule } from './project-entries/project-entries.module';
+import { APP_GUARD } from '@nestjs/core';
+import { JwtAuthGuard } from './auth/jwt-auth.guard';
 
 @Module({
   imports: [
@@ -30,10 +32,8 @@ import { ProjectEntriesModule } from './project-entries/project-entries.module';
       sync: {
         force: false,
         alter: false,
-        
       },
       synchronize: false,
-      
     }),
     ProjectsModule,
     UsersModule,
@@ -44,10 +44,17 @@ import { ProjectEntriesModule } from './project-entries/project-entries.module';
     MailerModule.forRoot({
       transport: `${process.env.MAIL_MAILER}://${process.env.MAIL_USERNAME}:${process.env.MAIL_PASSWORD}@${process.env.MAIL_HOST}`,
     }),
-    HashModule
+    HashModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    // Globally applies JwtAuthGuard to all routes unless otherwise specified
+    {
+      provide: APP_GUARD,
+      useClass: JwtAuthGuard,
+    },
+  ],
 })
 export class AppModule {
   constructor() {

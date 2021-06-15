@@ -9,7 +9,6 @@ export class AuthService {
   constructor(
     private usersService: UsersService,
     private jwtService: JwtService,
-    private hashService: HashService,
   ) {}
 
   async validateUser(login: string, pass: string): Promise<any> {
@@ -18,7 +17,7 @@ export class AuthService {
       //@ts-ignore
       user = user.toJSON();
     }
-    console.log(user.password);
+    
     if (user && user.password === pass) {
       const { password, ...result } = user;
       return result;

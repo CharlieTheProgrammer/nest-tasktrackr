@@ -1,0 +1,21 @@
+
+There are 2 parts to the authentication.
+
+#1 Local strategy
+This is in charge of getting the user's login and password and validating them.
+If there's an issue, a 401 error will be thrown.
+If all good, a signed JWT will be created. User information will be included in
+token.
+
+This route is marked as Public and of course, the login route is specifically
+marked to use local strategy.
+
+#2. JWT strategy
+This does two things
+  1. Validates any JWT that hits any of the protected routes, which as of now, are 
+  all the routes except for the login route. This has been added at a global level
+  through the app module. 
+  
+  2. When the token is validated, the validate function adds whatever is returned
+  from the function to the req object. In my case, req.user. This can then be 
+  accessed from any controller by using the @Request() req decorator.
