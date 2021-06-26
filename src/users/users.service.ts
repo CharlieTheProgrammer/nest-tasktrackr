@@ -1,6 +1,7 @@
 import { Body, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { User } from 'src/core/entities/user.entity';
+import { MailService } from 'src/core/mail/mail.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 
@@ -9,11 +10,13 @@ export class UsersService {
   constructor(
     @InjectModel(User)
     private userModel: typeof User,
+    private sendMail: MailService
   ) {}
 
   async create(@Body() createUserDto: CreateUserDto) {
     const user = await User.create(createUserDto);
     console.log(user.toJSON());
+    await this.sendMail.welcome({to: user.email});
     return {
       message: 'ok'
     };
@@ -24,6 +27,7 @@ export class UsersService {
   }
 
   async findOne(id: number) {
+    await this.sendMail.welcome({to: 'testing@test.com'});
     return await User.scope(['withProjects.withEntries', 'withEntries']).findByPk(id);
   }
 
