@@ -13,6 +13,7 @@ import { Category } from './core/entities/category.entity';
 import { Entry } from './core/entities/entry.entity';
 import { AuthModule } from './auth/auth.module';
 import { MailerModule } from '@nestjs-modules/mailer';
+import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handlebars.adapter';
 import { HashModule } from './core/hash/hash.module';
 import { ProjectEntriesModule } from './project-entries/project-entries.module';
 import { APP_GUARD } from '@nestjs/core';
@@ -43,6 +44,13 @@ import { JwtAuthGuard } from './auth/jwt-auth.guard';
     AuthModule,
     MailerModule.forRoot({
       transport: `${process.env.MAIL_MAILER}://${process.env.MAIL_USERNAME}:${process.env.MAIL_PASSWORD}@${process.env.MAIL_HOST}`,
+      template: {
+        dir: __dirname + '/core/mail/views/',
+        adapter: new HandlebarsAdapter(),
+        options: {
+          strict: true,
+        },
+      },
     }),
     HashModule,
   ],

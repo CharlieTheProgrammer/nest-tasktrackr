@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { MailerService } from '@nestjs-modules/mailer';
 import { ConfigService } from '@nestjs/config';
+import { User } from '../entities/user.entity';
 
 type config = {
   host: string;
@@ -16,7 +17,7 @@ type config = {
 type sendOptions = {
   from?: string;
   to: string;
-  text?: number;
+  text?: string;
   html?: string;
   subject?: string;
 };
@@ -71,12 +72,28 @@ export class MailService {
     });
   }
 
-  public async passwordReset(options: sendOptions): Promise<any> {
+  public async passwordReset(options: sendOptions, user: User): Promise<any> {
+    //@ts-ignore
+    user = user.toJSON();
+    return await this.mailerService.sendMail({
+      to: options.to,
+      from: options.from || this._config.fromAddress,
+      subject: options.subject || 'Password Reset Request',
+      template: './request-password-reset',
+      context: {
+        user
+      }
+      // text: 'Your password has been successfully reset.'
+      // html: '<b>welcome</b>',
+    });
+  }
+
+  public async passwordResetComplete(options: sendOptions): Promise<any> {
     return await this.mailerService.sendMail({
       to: options.to,
       from: options.from || this._config.fromAddress,
       subject: options.subject || 'Testing Nest MailerModule ✔',
-      text: 'Your password has been successfully reset.'
+      // text: 'Your password has been successfully reset.'
       // html: '<b>welcome</b>',
     });
   }
